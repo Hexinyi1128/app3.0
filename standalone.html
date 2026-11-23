@@ -9,10 +9,11 @@
   --primary:#6E96C2;--deep:#5580B0;--mist:#C6D8EA;--mistlight:#EAF1F8;
   --page:#F7F9FB;--ink:#2A2D33;--muted:#9AA0A8;--line:#E8EDF2;
   --okay:#A8D08D;--off:#D98880;
+  --sun:#F4A259;--peach:#F7C9A9;--lav:#C9B6E6;--mint:#A9D6BE;--cream:#FFF6EA;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%}
-body{margin:0;background:#E8EDF2;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#F0EDE7;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 button,input,textarea{font:inherit}
 button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 ::selection{background:rgba(110,150,194,.28);color:inherit}
@@ -42,13 +43,44 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr .deco i{position:absolute;display:block;border-radius:999px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.58)}
 .hdr .content{position:relative;z-index:2}
 
-.hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.55);border-radius:24px;background:linear-gradient(150deg,#9FB9D8,#BDD2E8);transition:transform .3s ease,opacity .3s ease}
+.hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
+.island-map{position:relative;margin:12px;border-radius:26px;overflow:hidden;padding:0 0 8px;background:linear-gradient(180deg,#BFE3F2 0%,#93CBE8 42%,#5FA9D6 100%);border:1px solid rgba(255,255,255,.6);box-shadow:0 16px 36px rgba(70,140,190,.22)}
+.island-map::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 14%,rgba(255,255,255,.5) 0 2px,transparent 3px),radial-gradient(circle at 20% 46%,rgba(255,255,255,.35) 0 1.5px,transparent 2.5px),radial-gradient(circle at 62% 72%,rgba(255,255,255,.35) 0 2px,transparent 3px),repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.09) 22px 23px)}
+.island-map-head{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 20px 6px}
+.island-map-head .eyebrow{margin:0;font-size:9px;font-weight:700;letter-spacing:.24em;color:rgba(32,92,132,.85)}
+.island-map-head h2{margin:5px 0 0;font-size:19px;letter-spacing:-.4px;color:#134E73}
+.island-map-head .sub{margin:5px 0 0;font-size:10px;line-height:1.5;color:rgba(19,78,115,.82)}
+.island-progress{flex:none;padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.85);text-align:center;color:#134E73}
+.island-progress b{display:block;font-size:20px;line-height:1;font-weight:800}
+.island-progress span{display:block;margin-top:3px;font-size:8px;letter-spacing:.08em}
+.island-water{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 6px;padding:10px 12px 4px}
+.island-node{position:relative;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;color:#134E73}
+.island-node:nth-child(4n+2){transform:translateY(16px)}
+.island-node:nth-child(4n+3){transform:translateY(-8px)}
+.island-orb{position:relative;width:100%;aspect-ratio:1/.92;border-radius:48% 52% 45% 55%/52% 46% 54% 48%;background-size:cover;background-position:center;box-shadow:0 10px 18px rgba(20,70,120,.28),inset 0 0 0 2px rgba(255,255,255,.55);transition:transform .2s ease,filter .25s ease;overflow:visible}
+.island-orb::after{content:"";position:absolute;left:8%;right:8%;bottom:-7px;height:12px;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(3px);z-index:-1}
+.island-node:active .island-orb{transform:scale(.95)}
+.island-node.locked .island-orb{filter:grayscale(.72) brightness(.9) saturate(.6);opacity:.82}
+.island-node.lit .island-orb{box-shadow:0 10px 22px rgba(20,70,120,.32),0 0 0 3px rgba(255,255,255,.9),0 0 22px rgba(255,214,130,.85)}
+.island-badge{position:absolute;top:-6px;right:-4px;z-index:3;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 14px rgba(20,70,120,.24);color:#134E73}
+.island-badge svg{width:22px;height:22px}
+.island-node.locked .island-badge{background:rgba(255,255,255,.7);opacity:.8}
+.island-flag{position:absolute;top:-8px;left:2px;z-index:3;padding:3px 8px;border-radius:99px;font-size:8px;font-weight:700;letter-spacing:.05em;color:#7A4A12;background:linear-gradient(135deg,#FFE1A6,#F4A259);box-shadow:0 5px 12px rgba(244,162,89,.4)}
+.island-node.locked .island-flag{display:none}
+.island-name{margin-top:12px;font-size:11px;font-weight:700;color:#0B3E5E;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.island-state{margin-top:2px;font-size:8px;letter-spacing:.06em;color:rgba(11,62,94,.72)}
+.island-node.lit .island-state{color:#B4701F;font-weight:700}
+.island-foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 12px 4px;padding:9px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.6);font-size:9px;color:#134E73;text-align:center;line-height:1.5}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
 .hdr-title{margin:16px 0 0;font-size:28px;line-height:1.25;letter-spacing:-.6px;color:var(--ink)}
 .hdr-desc{margin:8px 0 0;font-size:12px;line-height:1.6;color:var(--deep)}
+.home-header .hdr-eyebrow{color:#9A6134}
+.home-header .hdr-greeting{color:#8A5A30}
+.home-header .hdr-title{color:#3A2A20}
+.home-header .hdr-desc{color:#8A5A30}
 .hdr-search{display:flex;align-items:center;gap:10px;width:100%;height:42px;margin-top:18px;padding:0 14px;border:1px solid rgba(255,255,255,.9);border-radius:999px;background:rgba(255,255,255,.72);color:var(--deep);font-size:12px;text-align:left}
 .hdr-search .hint{flex:1;color:rgba(85,128,176,.82)}
 .hdr-search .go{font-size:16px;font-weight:600}
@@ -1206,6 +1238,7 @@ const AVATAR_PROPS={
   light:{label:'灯光',color:'#E5B93F',svg:`<g><circle cy="-7" r="12" fill="#F6DC78" stroke="#D9A93B" stroke-width="2"/><rect x="-6" y="5" width="12" height="8" rx="2" fill="#B8B8B8"/><path d="M-8 -7 L-15 -11 M8 -7 L15 -11 M0 -19 L0 -25" stroke="#E5B93F" stroke-width="2.4" stroke-linecap="round"/></g>`},
   retouch:{label:'宠物美容',color:'#8FB98A',svg:`<g><ellipse cy="6" rx="11" ry="9" fill="#A8C69C"/><circle cx="-11" cy="-5" r="5" fill="#A8C69C"/><circle cx="-4" cy="-11" r="5" fill="#A8C69C"/><circle cx="5" cy="-11" r="5" fill="#A8C69C"/><circle cx="12" cy="-5" r="5" fill="#A8C69C"/></g>`}
 }
+const ISLAND_ART={photo:1,coffee:2,florist:3,design:4,baker:5,video:6,light:2,retouch:3}
 const AVATAR_IMG={base:'./images/portrait/base.jpg',photo:'./images/portrait/photo.jpg',coffee:'./images/portrait/coffee.jpg',baker:'./images/portrait/baker.jpg',florist:'./images/portrait/florist.jpg',design:'./images/portrait/design.jpg',video:'./images/portrait/video.jpg',retouch:'./images/portrait/retouch.jpg',light:'./images/portrait/light.jpg'}
 const AVATAR_LOOK_NAME={base:'原始形象',photo:'摄影师',coffee:'咖啡师',baker:'烘焙师',florist:'花艺师',design:'平面设计师',video:'化妆师',retouch:'宠物美容师',light:'灯光布景师'}
 const PRESET_AVATARS=[
@@ -1455,6 +1488,21 @@ function viewOnboarding(){
 function viewHome(){
   const homeList=DATA.islands
   S.homeList=homeList.map(x=>x.id)
+  const litIds=[...new Set(S.records.map(r=>r.islandId))]
+  const litCount=homeList.filter(x=>litIds.includes(x.id)).length
+  const islandNodes=homeList.map(i=>{
+    const lit=litIds.includes(i.id)
+    const art=ISLAND_ART[i.id]||1
+    const prop=AVATAR_PROPS[i.id]||AVATAR_PROPS.photo
+    return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" title="${esc(i.name)}">
+      <div class="island-orb" style="background-image:url('./images/islands/island-${art}.jpg')">
+        ${lit?'<span class="island-flag">已点亮</span>':''}
+        <span class="island-badge"><svg viewBox="-28 -28 56 56">${prop.svg}</svg></span>
+      </div>
+      <span class="island-name">${esc(i.name)}</span>
+      <span class="island-state">${lit?'再跳一次':'未探索'}</span>
+    </button>`
+  }).join('')
   return `<div class="screen">
     <div class="hdr home-header" id="homeHeader" style="padding-bottom:76px">${hdrDeco()}<div class="content">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
@@ -1462,7 +1510,7 @@ function viewHome(){
         <button class="pill glasspill" data-action="location" title="修改定位">${ICON.pin} ${esc(S.location.split(' · ').slice(0,2).join(' · '))} ${ICON.chev}</button>
       </div>
       <h1 class="hdr-title">下一座岛，哪座？</h1>
-      <p class="hdr-desc">与其想几个月，不如先跳一座岛。</p>
+      <p class="hdr-desc">每试过一种职业，就点亮一座岛。先跳一座，再慢慢看清自己。</p>
       <button class="hdr-search" data-action="open-search" aria-label="搜索方向与职业">
         <span style="display:grid;place-items:center;flex:none;color:var(--deep)">${ICON.search}</span>
         <span class="hint">搜索感兴趣的方向 / 职业</span>
@@ -1495,21 +1543,23 @@ function viewHome(){
           <button data-action="nav-bookings" style="display:block;margin:12px auto 0;border:0;background:none;color:var(--primary);font-size:10px;font-weight:700">查看我的预约 →</button>
         </div>`
       })()}
-      <div class="card" style="padding:20px">
-        <div class="reco-head">
-          <div><p class="reco-eyebrow">FOR YOU</p><h2 class="reco-title">为你推荐</h2></div>
-          <button class="reco-more" data-action="nav-map">看看附近 ›</button>
+      <div class="island-map">
+        <div class="island-map-head">
+          <div>
+            <p class="eyebrow">MY ISLANDS / 我的群岛</p>
+            <h2>跳岛地图</h2>
+            <p class="sub">每探索一种职业，就点亮一座岛</p>
+          </div>
+          <div class="island-progress"><b>${litCount}</b><span>/ ${homeList.length} 已点亮</span></div>
         </div>
-        <div id="recoCarouselHost">${carouselHtml(homeList)}</div>
-        <div style="margin-top:20px">
-          ${btn('了解详情','open-detail','deep')}
-          <p id="homeHint" style="margin:12px 0 0;text-align:center;font-size:11px;color:var(--muted)">${S.bookings.length?`已有 ${S.bookings.length} 条预约，可在个人中心查看。`:'先看看，再决定要不要留下。'}</p>
-          ${S.bookings.length?`<button data-action="nav-bookings" style="display:block;margin:8px auto 0;border:0;background:none;color:var(--primary);font-size:11px;font-weight:700">查看我的预约 →</button>`:''}
-        </div>
+        <div class="island-water">${islandNodes}</div>
+        <div class="island-foot">轻点任意岛屿 · 先看看这座岛，再决定要不要留下</div>
       </div>
-      <div style="margin-top:24px"><div style="display:flex;align-items:baseline;justify-content:space-between"><h2 style="margin:0;font-size:16px">离你很近</h2><button data-action="nav-map" style="border:0;background:none;color:var(--muted);font-size:11px">打开地图 →</button></div>
-        <div style="margin-top:12px;display:grid;gap:10px">${DATA.islands.slice(2,4).map(i=>`<div class="card click" data-action="open-detail-id" data-id="${i.id}" style="display:flex;align-items:center;gap:12px;padding:14px">${ring(i.glyph,46)}<div style="flex:1;min-width:0"><p style="margin:0;font-size:13px;font-weight:700">${i.name}</p><p style="margin:3px 0 0;font-size:11px;color:var(--muted)">${i.distance} · ${DATA.levels[0].duration} · ${i.rating} 分</p></div><span style="color:var(--muted)">${ICON.right}</span></div>`).join('')}</div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="btn light" data-action="nav-map" style="flex:1"><span>打开地图</span><span class="arrow">${ICON.arrow}</span></button>
+        <button class="btn" data-action="open-detail" style="flex:1"><span>随便看看</span><span class="arrow">${ICON.arrow}</span></button>
       </div>
+      <p id="homeHint" style="margin:14px 0 0;text-align:center;font-size:11px;color:var(--muted)">${S.bookings.length?`已有 ${S.bookings.length} 条预约，可在个人中心查看。`:'跳过的每一座岛，都会成为你的线索。'}</p>
       <div class="card" style="padding:20px;margin-top:24px">
         <p style="margin:0;font-size:10px;font-weight:600;letter-spacing:.18em;color:var(--primary)">HOW IT WORKS</p><h2 style="margin:4px 0 0;font-size:16px">跳岛，不用一次想清楚</h2>
         <div style="display:flex;align-items:center;gap:8px;margin-top:16px">${[['登岛','用半天试试看'],['离岛 / 再登岛','都算有收获'],['跳岛日志','只记观察，不定论']].map(([t,d],idx)=>`<div style="flex:1;min-width:0"><p style="margin:0;font-size:11px;font-weight:700;color:var(--deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t}</p><p style="margin:4px 0 0;font-size:10px;line-height:1.4;color:var(--muted)">${d}</p></div>${idx<2?'<span style="width:10px;height:1px;background:var(--line);flex:none"></span>':''}`).join('')}</div>
