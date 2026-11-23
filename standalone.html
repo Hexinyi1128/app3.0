@@ -47,32 +47,22 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
-.island-map{position:relative;margin:0;border-radius:0;overflow:hidden;padding:0 0 96px;background:linear-gradient(180deg,#FCF8F3 0%,#F6ECDE 100%)}
-.island-map::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 82% 8%,rgba(247,201,169,.5),transparent 32%),radial-gradient(circle at 8% 42%,rgba(201,182,230,.32),transparent 30%),radial-gradient(circle at 88% 78%,rgba(169,214,190,.35),transparent 28%)}
-.island-map-head{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 20px 8px}
-.island-map-head .eyebrow{margin:0;font-size:9px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
-.island-map-head h2{margin:5px 0 0;font-size:22px;letter-spacing:-.4px;color:var(--ink)}
-.island-map-head .sub{margin:5px 0 0;font-size:10px;line-height:1.5;color:var(--muted)}
-.island-progress{flex:none;padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.9);text-align:center;color:var(--deep);box-shadow:0 8px 20px rgba(160,100,70,.1)}
-.island-progress b{display:block;font-size:20px;line-height:1;font-weight:800}
-.island-progress span{display:block;margin-top:3px;font-size:8px;letter-spacing:.08em}
-.island-water{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 10px;padding:8px 12px 4px}
-.island-node{position:relative;display:flex;flex-direction:column;align-items:center;padding:10px 6px 12px;border:0;border-radius:24px;background:rgba(255,255,255,.55);box-shadow:0 8px 22px rgba(160,100,70,.09)}
-.island-node:nth-child(4n+2){transform:translateY(10px)}
-.island-node:nth-child(4n+3){transform:translateY(-6px)}
-.island-orb{position:relative;width:100%;aspect-ratio:3/4;border-radius:20px;background-size:cover;background-position:center top;box-shadow:0 8px 18px rgba(90,60,40,.14);transition:transform .2s ease,filter .25s ease;overflow:hidden}
-.island-node:active .island-orb{transform:scale(.96)}
-.island-node.locked .island-orb{filter:grayscale(.55) brightness(.96);opacity:.9}
-.island-node.lit .island-orb{box-shadow:0 8px 18px rgba(90,60,40,.16),0 0 0 2px rgba(244,162,89,.7)}
-.island-badge{position:absolute;top:6px;right:6px;z-index:3;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 10px rgba(90,60,40,.18);color:var(--deep)}
-.island-badge svg{width:20px;height:20px}
-.island-node.locked .island-badge{opacity:.7}
-.island-flag{position:absolute;top:6px;left:6px;z-index:3;padding:3px 8px;border-radius:99px;font-size:8px;font-weight:700;letter-spacing:.05em;color:#7A4A12;background:linear-gradient(135deg,#FFE1A6,#F4A259);box-shadow:0 5px 12px rgba(244,162,89,.3)}
-.island-node.locked .island-flag{display:none}
-.island-name{margin-top:10px;font-size:12px;font-weight:700;color:var(--ink);text-align:center}
-.island-state{margin-top:3px;font-size:8px;letter-spacing:.06em;color:var(--muted)}
-.island-node.lit .island-state{color:var(--deep);font-weight:700}
-.island-foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 12px 4px;padding:10px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);font-size:10px;color:var(--deep);text-align:center;line-height:1.5;box-shadow:0 8px 20px rgba(160,100,70,.08)}
+.island-map{position:relative;margin:0;min-height:960px;padding:0;background:#fff;overflow:hidden}
+.island-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.island-title{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 0}
+.island-title h1{margin:0;font-size:20px;letter-spacing:-.4px;color:var(--ink)}
+.island-title .count{font-size:11px;font-weight:700;color:var(--muted)}
+.island-search{position:relative;z-index:3;display:grid;place-items:center;width:36px;height:36px;flex:none;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--deep);box-shadow:0 4px 12px rgba(90,60,40,.08)}
+.island-search svg{width:18px;height:18px}
+.island-node{position:absolute;z-index:2;width:27%;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%)}
+.island-orb{position:relative;width:100%;aspect-ratio:3/4;background-size:cover;background-position:center top;border-radius:18px;transition:transform .2s ease,filter .3s ease;-webkit-mask-image:radial-gradient(ellipse 72% 64% at 50% 50%,#000 54%,transparent 100%);mask-image:radial-gradient(ellipse 72% 64% at 50% 50%,#000 54%,transparent 100%)}
+.island-node:active .island-orb{transform:scale(.95)}
+.island-node.locked .island-orb{filter:grayscale(1) contrast(.96)}
+.island-node.lit .island-orb{filter:drop-shadow(0 8px 14px rgba(120,90,60,.18))}
+.island-name{margin-top:-2px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;white-space:nowrap}
+.island-node.locked .island-name{color:#9A9A9A}
+.island-note{position:absolute;left:0;right:0;bottom:96px;z-index:3;text-align:center;font-size:10px;color:var(--muted)}
+.island-note b{color:var(--deep)}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
 .hdr-title{margin:16px 0 0;font-size:28px;line-height:1.25;letter-spacing:-.6px;color:var(--ink)}
@@ -1490,58 +1480,33 @@ function viewHome(){
   S.homeList=homeList.map(x=>x.id)
   const litIds=[...new Set(S.records.map(r=>r.islandId))]
   const litCount=homeList.filter(x=>litIds.includes(x.id)).length
-  const islandNodes=homeList.map(i=>{
+  const spots=[
+    [26,14],[70,11],[30,31],[72,33],[22,51],[68,55],[32,73],[70,78]
+  ]
+  const nodes=homeList.map((i,n)=>{
     const lit=litIds.includes(i.id)
-    const prop=AVATAR_PROPS[i.id]||AVATAR_PROPS.photo
-    return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" title="${esc(i.name)}">
-      <div class="island-orb" style="background-image:url('./images/islands/${i.id}.png')">
-        ${lit?'<span class="island-flag">已点亮</span>':''}
-        <span class="island-badge"><svg viewBox="-28 -28 56 56">${prop.svg}</svg></span>
-      </div>
+    const [x,y]=spots[n]||[50,50+n*10]
+    return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" style="left:${x}%;top:${y}%" title="${esc(i.name)}">
+      <div class="island-orb" style="background-image:url('./images/islands/${i.id}.png')"></div>
       <span class="island-name">${esc(i.name)}</span>
-      <span class="island-state">${lit?'再跳一次':'未探索'}</span>
     </button>`
   }).join('')
-  const pending=S.bookings.filter(b=>b.status==='booked')
-  const pendingHtml=pending.length?`<div class="card" style="padding:16px 18px;margin:0 12px 12px;background:linear-gradient(135deg,rgba(247,201,169,.35),#fff)">
-    <div style="display:flex;align-items:center;justify-content:space-between"><p style="margin:0;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--deep)">UPCOMING · 待体验</p>${pill(pending.length+' 条预约')}</div>
-    <div style="display:grid;gap:10px;margin-top:12px">${pending.map(b=>{
-      const bi=findIsland(b.islandId),bl=findLevel(b.levelId)
-      const bst=findStore(b.storeId)||DATA.stores.find(x=>x.islandId===b.islandId)||DATA.stores[0]
-      const cd=bookingCountdown(b)
-      return `<div style="padding:12px;border-radius:16px;background:rgba(255,255,255,.86)">
-        <div style="display:flex;align-items:center;gap:10px">
-          ${ring(bi.glyph,38)}
-          <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;justify-content:space-between;gap:6px"><b style="font-size:12px">${bi.name}</b>${pill('已锁定','green')}</div><p style="margin:3px 0 0;font-size:10px;color:var(--muted)">${bookingDate(b)} · ${bl.name} · 到店 ${arrivalTime(bst.id)}</p></div>
-          <button data-action="reminder-start" data-id="${b.id}" style="flex:none;padding:8px 12px;border:0;border-radius:99px;background:var(--primary);color:#fff;font-size:10px;font-weight:700">开始体验</button>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 14px;border-radius:14px;${cd.soon?'background:linear-gradient(135deg,rgba(244,162,89,.2),rgba(232,169,160,.16));border:1px solid rgba(244,162,89,.4)':'background:var(--mistlight)'}">
-          <span style="color:${cd.soon?'#C97B52':'var(--deep)'}">${ICON.clock}</span>
-          <span id="cd-${b.id}" style="font-size:${cd.soon?'18':'15'}px;font-weight:800;letter-spacing:.5px;color:${cd.soon?'#C97B52':'var(--deep)'}">${cd.text}</span>
-          ${cd.soon?'<span style="margin-left:auto;font-size:10px;font-weight:700;color:#C97B52">即将到店</span>':''}
-        </div>
-      </div>`
-    }).join('')}</div>
-    <button data-action="nav-bookings" style="display:block;margin:12px auto 0;border:0;background:none;color:var(--deep);font-size:10px;font-weight:700">查看我的预约 →</button>
-  </div>`:''
+  const pts=spots.map(([x,y],n)=>`${x},${y+3}`).join(' ')
+  const pending=S.bookings.filter(b=>b.status==='booked').length
   return `<div class="screen" style="padding-bottom:0">
     <div class="island-map">
-      <div class="island-map-head">
-        <div>
-          <p class="eyebrow">ISLAND HOP / 跳岛地图</p>
-          <h2>嗨，${esc(S.profile.nickname)}</h2>
-          <p class="sub">每座岛是一种职业，跳过去看看真实的一天</p>
+      <svg class="island-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="${pts}" fill="none" stroke="#D9D2CA" stroke-width="1.6" stroke-dasharray="0.9 1.1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <div class="island-title">
+        <h1>跳岛地图</h1>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="count">${litCount}/${homeList.length} 已点亮</span>
+          <button class="island-search" data-action="open-search" aria-label="搜索方向与职业">${ICON.search}</button>
         </div>
-        <div class="island-progress"><b>${litCount}</b><span>/ ${homeList.length} 已点亮</span></div>
       </div>
-      <button class="hdr-search" data-action="open-search" aria-label="搜索方向与职业" style="margin:6px 12px 4px;width:calc(100% - 24px);background:rgba(255,255,255,.86);color:var(--deep)">
-        <span style="display:grid;place-items:center;flex:none;color:var(--deep)">${ICON.search}</span>
-        <span class="hint" style="color:var(--muted)">搜索感兴趣的方向 / 职业</span>
-        <span class="go">›</span>
-      </button>
-      ${pendingHtml}
-      <div class="island-water">${islandNodes}</div>
-      <div class="island-foot">轻点任意岛屿 · 进入这座岛的预约之旅</div>
+      ${nodes}
+      <div class="island-note">${pending?`<b>待体验 ${pending} 条 · 在「我的」中查看</b><br>`:''}轻点任意岛屿，进入预约之旅</div>
     </div>
   </div>`
 }
