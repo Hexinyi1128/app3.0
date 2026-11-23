@@ -47,21 +47,21 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
-.island-map{position:relative;margin:0;min-height:960px;padding:0;background:#fff;overflow:hidden}
+.island-map{position:relative;margin:0;min-height:1040px;padding:0;background:#fff;overflow:hidden}
 .island-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .island-title{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 0}
 .island-title h1{margin:0;font-size:20px;letter-spacing:-.4px;color:var(--ink)}
 .island-title .count{font-size:11px;font-weight:700;color:var(--muted)}
 .island-search{position:relative;z-index:3;display:grid;place-items:center;width:36px;height:36px;flex:none;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--deep);box-shadow:0 4px 12px rgba(90,60,40,.08)}
 .island-search svg{width:18px;height:18px}
-.island-node{position:absolute;z-index:2;width:27%;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%)}
-.island-orb{position:relative;width:100%;aspect-ratio:3/4;background-size:cover;background-position:center top;border-radius:18px;transition:transform .2s ease,filter .3s ease;-webkit-mask-image:radial-gradient(ellipse 72% 64% at 50% 50%,#000 54%,transparent 100%);mask-image:radial-gradient(ellipse 72% 64% at 50% 50%,#000 54%,transparent 100%)}
-.island-node:active .island-orb{transform:scale(.95)}
+.island-node{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%) rotate(var(--rot,0deg));transform-origin:center;transition:transform .2s ease}
+.island-node:active{transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(.95)}
+.island-orb{position:relative;width:100%;aspect-ratio:314/449;background-size:contain;background-repeat:no-repeat;background-position:center;transition:filter .3s ease}
 .island-node.locked .island-orb{filter:grayscale(1) contrast(.96)}
-.island-node.lit .island-orb{filter:drop-shadow(0 8px 14px rgba(120,90,60,.18))}
+.island-node.lit .island-orb{filter:drop-shadow(0 12px 18px rgba(90,70,50,.22))}
 .island-name{margin-top:-2px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;white-space:nowrap}
 .island-node.locked .island-name{color:#9A9A9A}
-.island-note{position:absolute;left:0;right:0;bottom:96px;z-index:3;text-align:center;font-size:10px;color:var(--muted)}
+.island-note{position:absolute;left:0;right:0;bottom:100px;z-index:3;text-align:center;font-size:10px;color:var(--muted)}
 .island-note b{color:var(--deep)}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
@@ -1481,17 +1481,19 @@ function viewHome(){
   const litIds=[...new Set(S.records.map(r=>r.islandId))]
   const litCount=homeList.filter(x=>litIds.includes(x.id)).length
   const spots=[
-    [26,14],[70,11],[30,31],[72,33],[22,51],[68,55],[32,73],[70,78]
+    {x:24,y:12,w:29,r:-7},{x:66,y:9,w:24,r:6},{x:38,y:29,w:26,r:4},
+    {x:74,y:32,w:22,r:-9},{x:16,y:47,w:27,r:8},{x:55,y:53,w:24,r:-5},
+    {x:30,y:70,w:25,r:6},{x:70,y:76,w:27,r:-6}
   ]
   const nodes=homeList.map((i,n)=>{
     const lit=litIds.includes(i.id)
-    const [x,y]=spots[n]||[50,50+n*10]
-    return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" style="left:${x}%;top:${y}%" title="${esc(i.name)}">
+    const s=spots[n]||{x:50,y:50+n*10,w:25,r:0}
+    return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" style="left:${s.x}%;top:${s.y}%;width:${s.w}%;--rot:${s.r}deg" title="${esc(i.name)}">
       <div class="island-orb" style="background-image:url('./images/islands/${i.id}.png')"></div>
       <span class="island-name">${esc(i.name)}</span>
     </button>`
   }).join('')
-  const pts=spots.map(([x,y],n)=>`${x},${y+3}`).join(' ')
+  const pts=spots.map(s=>`${s.x},${s.y+3}`).join(' ')
   const pending=S.bookings.filter(b=>b.status==='booked').length
   return `<div class="screen" style="padding-bottom:0">
     <div class="island-map">
