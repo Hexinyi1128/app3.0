@@ -49,11 +49,6 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .home-overlap{margin-left:12px;margin-right:12px}
 .island-map{position:relative;margin:0;min-height:1040px;padding:0;background:#fff;overflow:hidden}
 .island-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
-.island-title{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 0}
-.island-title h1{margin:0;font-size:20px;letter-spacing:-.4px;color:var(--ink)}
-.island-title .count{font-size:11px;font-weight:700;color:var(--muted)}
-.island-search{position:relative;z-index:3;display:grid;place-items:center;width:36px;height:36px;flex:none;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--deep);box-shadow:0 4px 12px rgba(90,60,40,.08)}
-.island-search svg{width:18px;height:18px}
 .island-node{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%) rotate(var(--rot,0deg));transform-origin:center;transition:transform .2s ease}
 .island-node:active{transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(.95)}
 .island-orb{position:relative;width:100%;aspect-ratio:314/449;background-size:contain;background-repeat:no-repeat;background-position:center;transition:filter .3s ease}
@@ -238,7 +233,6 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .island-empty{position:absolute;inset:0;display:grid;place-content:center;gap:8px;text-align:center;padding:0 30px;color:var(--deep)}
 .island-empty b{font-size:15px}
 .island-empty span{font-size:11px;line-height:1.7;color:var(--muted)}
-.island-map{position:relative;height:300px;overflow:hidden;border-radius:18px;background:linear-gradient(160deg,#BFD6EA,#DCEAF5)}
 .island-map>svg{position:absolute;inset:0;width:100%;height:100%}
 .island-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;gap:2px;padding:0;border:0;background:none;color:var(--deep)}
 .island-pin .day{font-size:9px;font-weight:800;letter-spacing:.1em;color:rgba(85,128,176,.8)}
@@ -1479,7 +1473,6 @@ function viewHome(){
   const homeList=DATA.islands
   S.homeList=homeList.map(x=>x.id)
   const litIds=[...new Set(S.records.map(r=>r.islandId))]
-  const litCount=homeList.filter(x=>litIds.includes(x.id)).length
   const spots=[
     {x:24,y:12,w:29,r:-7},{x:66,y:9,w:24,r:6},{x:38,y:29,w:26,r:4},
     {x:74,y:32,w:22,r:-9},{x:16,y:47,w:27,r:8},{x:55,y:53,w:24,r:-5},
@@ -1500,13 +1493,6 @@ function viewHome(){
       <svg class="island-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <polyline points="${pts}" fill="none" stroke="#D9D2CA" stroke-width="1.6" stroke-dasharray="0.9 1.1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
       </svg>
-      <div class="island-title">
-        <h1>跳岛地图</h1>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="count">${litCount}/${homeList.length} 已点亮</span>
-          <button class="island-search" data-action="open-search" aria-label="搜索方向与职业">${ICON.search}</button>
-        </div>
-      </div>
       ${nodes}
       <div class="island-note">${pending?`<b>待体验 ${pending} 条 · 在「我的」中查看</b><br>`:''}轻点任意岛屿，进入预约之旅</div>
     </div>
