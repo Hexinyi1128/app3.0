@@ -1,0 +1,343 @@
+{
+  "user": {
+    "id": "u_01",
+    "nickname": "林漫",
+    "interests": ["coffee", "photo", "design", "florist"],
+    "islandDays": 46,
+    "location": "上海 · 静安 · 3km 内"
+  },
+  "interestOptions": [
+    { "id": "coffee", "label": "咖啡", "glyph": "咖" },
+    { "id": "photo", "label": "摄影", "glyph": "摄" },
+    { "id": "design", "label": "设计", "glyph": "设" },
+    { "id": "florist", "label": "花艺", "glyph": "花" },
+    { "id": "baker", "label": "烘焙", "glyph": "焙" },
+    { "id": "pet", "label": "宠物", "glyph": "宠" },
+    { "id": "writing", "label": "写作", "glyph": "写" },
+    { "id": "music", "label": "音乐", "glyph": "音" },
+    { "id": "craft", "label": "手作", "glyph": "手" },
+    { "id": "garden", "label": "园艺", "glyph": "园" },
+    { "id": "video", "label": "短视频", "glyph": "影" },
+    { "id": "community", "label": "社群", "glyph": "群" }
+  ],
+  "levels": [
+    {
+      "id": "taste",
+      "name": "初步接触",
+      "duration": "30 分钟",
+      "price": 39,
+      "desc": "职业观察与交流",
+      "hint": "先看看这座岛长什么样"
+    },
+    {
+      "id": "light",
+      "name": "轻度体验",
+      "duration": "2 小时",
+      "price": 99,
+      "desc": "完成一项真实任务",
+      "hint": "多数人选这档",
+      "badge": "多数人选这档"
+    },
+    {
+      "id": "deep",
+      "name": "深度体验",
+      "duration": "半天",
+      "price": 199,
+      "desc": "参与完整辅助流程",
+      "hint": "适合想再靠近一点的人"
+    }
+  ],
+  "islands": [
+    {
+      "id": "photo",
+      "category": "影像",
+      "name": "摄影师",
+      "en": "PHOTOGRAPHER",
+      "glyph": "摄",
+      "gradient": ["#9FB9D8", "#C6D8EA"],
+      "price": 99,
+      "duration": "2 小时",
+      "distance": "1.8km",
+      "spots": 4,
+      "rating": 4.8,
+      "explorers": 932,
+      "summary": "跟着摄影师走一条街，完成一次真实的人像拍摄。",
+      "hotTag": "本周热门",
+      "tags": ["拍摄过程", "空间布置", "独自判断"]
+    },
+    {
+      "id": "coffee",
+      "category": "餐饮",
+      "name": "咖啡师",
+      "en": "BARISTA",
+      "glyph": "咖",
+      "gradient": ["#A9BED8", "#D3E1EE"],
+      "price": 99,
+      "duration": "2 小时",
+      "distance": "1.2km",
+      "spots": 3,
+      "rating": 4.9,
+      "explorers": 1268,
+      "summary": "从磨豆到出杯，站进吧台经历一个真实的早高峰。",
+      "hotTag": "新手友好",
+      "tags": ["与人交流", "动手创造", "重复性动作"]
+    },
+    {
+      "id": "design",
+      "category": "创意",
+      "name": "平面设计师",
+      "en": "GRAPHIC DESIGNER",
+      "glyph": "设",
+      "gradient": ["#8FAFD2", "#BBD0E6"],
+      "price": 159,
+      "duration": "2 小时",
+      "distance": "2.4km",
+      "spots": 2,
+      "rating": 4.9,
+      "explorers": 764,
+      "summary": "拿到一份真实需求，和设计师一起把想法排成版面。",
+      "hotTag": "作品可带走",
+      "tags": ["后期修图", "空间布置", "细节要求高"]
+    },
+    {
+      "id": "florist",
+      "category": "生活",
+      "name": "花艺师",
+      "en": "FLORIST",
+      "glyph": "花",
+      "gradient": ["#A7BEDC", "#D6E3F0"],
+      "price": 99,
+      "duration": "2 小时",
+      "distance": "1.6km",
+      "spots": 5,
+      "rating": 4.8,
+      "explorers": 1102,
+      "summary": "为一束花做配色和造型，做完可以带回家。",
+      "hotTag": "适合周末",
+      "tags": ["动手创造", "空间布置", "与人交流"]
+    },
+    {
+      "id": "baker",
+      "category": "餐饮",
+      "name": "烘焙师",
+      "en": "BAKER",
+      "glyph": "焙",
+      "gradient": ["#9DB8D8", "#CFDFEC"],
+      "price": 99,
+      "duration": "半天",
+      "distance": "2.8km",
+      "spots": 2,
+      "rating": 4.7,
+      "explorers": 688,
+      "summary": "从称量到出炉，跟着烘焙师完成一条完整生产线。",
+      "hotTag": "半天限定",
+      "tags": ["动手创造", "重复性动作", "即时反馈"]
+    },
+    {
+      "id": "video",
+      "category": "影像",
+      "name": "短视频策划",
+      "en": "VIDEO CREATOR",
+      "glyph": "影",
+      "gradient": ["#94B2D4", "#C4D8EA"],
+      "price": 159,
+      "duration": "2 小时",
+      "distance": "3.0km",
+      "spots": 3,
+      "rating": 4.8,
+      "explorers": 853,
+      "summary": "从选题到分镜，参与一条短视频诞生前的两小时。",
+      "hotTag": "团队协作",
+      "tags": ["拍摄过程", "主动开口", "团队协作"]
+    },
+    {
+      "id": "light",
+      "category": "影像",
+      "name": "灯光布景师",
+      "en": "LIGHT & SET",
+      "glyph": "光",
+      "gradient": ["#A3BAD9", "#D2E0EE"],
+      "price": 159,
+      "duration": "2 小时",
+      "distance": "2.6km",
+      "spots": 3,
+      "rating": 4.9,
+      "explorers": 412,
+      "summary": "不站在镜头前，也能决定一个画面怎么被看见。",
+      "hotTag": "小众方向",
+      "tags": ["空间布置", "动手创造", "后期配合"]
+    },
+    {
+      "id": "retouch",
+      "category": "创意",
+      "name": "图片编辑",
+      "en": "IMAGE EDITOR",
+      "glyph": "修",
+      "gradient": ["#96B4D6", "#C9DBEC"],
+      "price": 139,
+      "duration": "2 小时",
+      "distance": "2.1km",
+      "spots": 4,
+      "rating": 4.8,
+      "explorers": 526,
+      "summary": "在一次修图里，练习怎么把照片变成想说的那句话。",
+      "hotTag": "安静的工作",
+      "tags": ["后期修图", "细节要求高", "独自判断"]
+    }
+  ],
+  "stores": [
+    {
+      "id": "s_coffee",
+      "islandId": "coffee",
+      "name": "雾屿咖啡 · 静安店",
+      "distance": "1.2km",
+      "duration": "2 小时",
+      "spots": 3,
+      "rating": 4.9,
+      "price": 99,
+      "x": 27,
+      "y": 31,
+      "mentor": { "name": "阿澄", "credential": "8 年精品咖啡 · 手冲赛事评审", "certified": true }
+    },
+    {
+      "id": "s_photo",
+      "islandId": "photo",
+      "name": "见山影像工作室",
+      "distance": "1.8km",
+      "duration": "2 小时",
+      "spots": 4,
+      "rating": 4.8,
+      "price": 159,
+      "x": 68,
+      "y": 23,
+      "mentor": { "name": "林一", "credential": "商业人像摄影师 · 6 年", "certified": true }
+    },
+    {
+      "id": "s_florist",
+      "islandId": "florist",
+      "name": "半日花房",
+      "distance": "1.6km",
+      "duration": "2 小时",
+      "spots": 5,
+      "rating": 4.8,
+      "price": 39,
+      "x": 58,
+      "y": 57,
+      "mentor": { "name": "小满", "credential": "花艺主理人 · 嗅觉与色彩课程讲师", "certified": true }
+    },
+    {
+      "id": "s_design",
+      "islandId": "design",
+      "name": "留白设计事务所",
+      "distance": "2.4km",
+      "duration": "2 小时",
+      "spots": 2,
+      "rating": 4.9,
+      "price": 99,
+      "x": 22,
+      "y": 70,
+      "mentor": { "name": "周予", "credential": "资深视觉设计师 · 品牌项目主创", "certified": true }
+    },
+    {
+      "id": "s_light",
+      "islandId": "light",
+      "name": "一束光棚",
+      "distance": "2.6km",
+      "duration": "2 小时",
+      "spots": 3,
+      "rating": 4.9,
+      "price": 159,
+      "x": 79,
+      "y": 68,
+      "mentor": { "name": "陈桉", "credential": "影视灯光师 · 参与 20+ 品牌短片", "certified": true }
+    }
+  ],
+  "tasks": [
+    { "id": "t1", "title": "认识今天的岛", "detail": "导师带你了解这份职业的一天与现场节奏", "length": "5 分钟" },
+    { "id": "t2", "title": "旁观一次真实工作", "detail": "完整看一遍导师怎么处理真实任务", "length": "15 分钟" },
+    { "id": "t3", "title": "轮到你上手", "detail": "完成一项真实的小任务，做不出来也没关系", "length": "30 分钟" },
+    { "id": "t4", "title": "收尾与回看", "detail": "一起看看刚才的过程，留下一个观察", "length": "10 分钟" }
+  ],
+  "mentorTips": [
+    "不用急着做得好，先注意自己哪一刻注意力最集中。",
+    "做错也没关系，真实工作里本来就会反复调整。",
+    "如果你开始走神，那也是一个有用的信息。"
+  ],
+  "moods": [
+    { "id": "fun", "label": "很有趣" },
+    { "id": "hard", "label": "有点难" },
+    { "id": "unsure", "label": "说不上来" },
+    { "id": "surprise", "label": "有意外" }
+  ],
+  "diaryOptions": {
+    "funParts": [
+      { "id": "f_talk", "label": "和顾客交流" },
+      { "id": "f_make", "label": "动手制作" },
+      { "id": "f_shoot", "label": "拍摄过程" },
+      { "id": "f_edit", "label": "后期修图" },
+      { "id": "f_space", "label": "空间布置" },
+      { "id": "f_finish", "label": "完成一件作品" }
+    ],
+    "hardParts": [
+      { "id": "h_repeat", "label": "重复性动作" },
+      { "id": "h_shoot", "label": "拍摄过程" },
+      { "id": "h_talk", "label": "主动开口" },
+      { "id": "h_detail", "label": "细节要求高" },
+      { "id": "h_pace", "label": "节奏太快" },
+      { "id": "h_solo", "label": "长时间独处" }
+    ],
+    "feelings": [
+      { "id": "like_talk", "label": "我喜欢和顾客交流的过程", "tone": "positive", "defaultOn": true },
+      { "id": "tired_repeat", "label": "重复性动作让我有点疲惫", "tone": "negative", "defaultOn": true },
+      { "id": "like_make", "label": "亲手做出成品让我很踏实", "tone": "positive", "defaultOn": false }
+    ]
+  },
+  "journalSeed": {
+    "records": [
+      { "id": "r1", "date": "09.06", "islandId": "design", "islandName": "平面设计师", "glyph": "设", "level": "轻度体验", "status": "revisit", "memo": "排版比想象中更像解题，喜欢最后对齐的那一刻。" },
+      { "id": "r2", "date": "09.28", "islandId": "coffee", "islandName": "咖啡师", "glyph": "咖", "level": "初步接触", "status": "excluded", "memo": "出杯节奏很治愈，但重复动作多到让我放空。" },
+      { "id": "r3", "date": "10.14", "islandId": "florist", "islandName": "花艺师", "glyph": "花", "level": "轻度体验", "status": "revisit", "memo": "配色的时候完全忘了时间，想再做一次。" },
+      { "id": "r4", "date": "11.02", "islandId": "video", "islandName": "短视频策划", "glyph": "影", "level": "初步接触", "status": "watching", "memo": "开会很有意思，拍摄那一段我更想退后一步。" }
+    ],
+    "preferences": [
+      { "id": "talk", "label": "与人交流", "score": 82 },
+      { "id": "make", "label": "动手创造", "score": 74 },
+      { "id": "feedback", "label": "即时反馈", "score": 71 },
+      { "id": "repeat", "label": "重复性动作", "score": 26 }
+    ],
+    "insight": "你在「与人交流」和「动手创造」里最放松；重复的、需要长时间独自精细处理的环节会让你消耗。下一座岛，可以仍然需要动手，但试着离镜头远一点。"
+  },
+  "recommendRules": {
+    "signals": {
+      "f_talk": { "coffee": 3, "florist": 3, "video": 2 },
+      "f_make": { "florist": 3, "baker": 3, "light": 2 },
+      "f_shoot": { "photo": 4, "video": 4, "light": 2 },
+      "f_edit": { "retouch": 4, "design": 3, "video": 2 },
+      "f_space": { "florist": 3, "light": 4, "design": 2 },
+      "f_finish": { "design": 3, "baker": 3, "retouch": 2 },
+      "h_repeat": { "coffee": -4, "baker": -4, "retouch": -2 },
+      "h_shoot": { "photo": -5, "video": -5, "light": -1 },
+      "h_talk": { "coffee": -4, "video": -3 },
+      "h_detail": { "design": -3, "retouch": -3, "photo": -2 },
+      "h_pace": { "coffee": -3, "baker": -2 },
+      "h_solo": { "retouch": -3, "photo": -2 },
+      "like_talk": { "coffee": 3, "florist": 2, "video": 2 },
+      "tired_repeat": { "coffee": -4, "baker": -4 },
+      "like_make": { "baker": 3, "florist": 3, "light": 2 }
+    },
+    "base": {
+      "coffee": 2, "photo": 2, "design": 2, "florist": 2,
+      "baker": 1, "video": 1, "light": 1, "retouch": 1
+    },
+    "notes": {
+      "retouch": "不站在镜头前，也能决定照片最后的样子。",
+      "light": "你提到喜欢布置和动手，布景是安静但可见的那一部分。",
+      "design": "把想法整理成看得见的版面，节奏由你掌握。",
+      "florist": "既有动手的部分，也有可以交流的部分。",
+      "baker": "从称量到出炉，每一步都有明确的反馈。",
+      "video": "更靠近策划和现场协作，决策空间大一些。",
+      "photo": "如果你还想再试试镜头，这次由你决定怎么拍。",
+      "coffee": "近距离和人打交道，节奏快，重复也多。"
+    }
+  }
+}
