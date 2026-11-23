@@ -6,14 +6,15 @@
 <title>跳岛 · ISLAND HOP（可直接运行版）</title>
 <style>
 :root{
-  --primary:#6E96C2;--deep:#5580B0;--mist:#C6D8EA;--mistlight:#EAF1F8;
-  --page:#F7F9FB;--ink:#2A2D33;--muted:#9AA0A8;--line:#E8EDF2;
-  --okay:#A8D08D;--off:#D98880;
+  --primary:#E79A6C;--deep:#C97B52;--mist:#F4DCC8;--mistlight:#FDF0E6;
+  --page:#FCF8F3;--ink:#3A302B;--muted:#A69A90;--line:#EFE5DC;
+  --okay:#A9D6BE;--off:#E8A9A0;
   --sun:#F4A259;--peach:#F7C9A9;--lav:#C9B6E6;--mint:#A9D6BE;--cream:#FFF6EA;
+  --sea:#A9DBE8;--sea-deep:#6FB9D2;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%}
-body{margin:0;background:#F0EDE7;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#F3EDE6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 button,input,textarea{font:inherit}
 button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 ::selection{background:rgba(110,150,194,.28);color:inherit}
@@ -22,8 +23,8 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .screen{min-height:100%;padding-bottom:100px}
 .overlap{position:relative;z-index:6;margin-left:12px;margin-right:12px}
 
-#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:8px;background:#E8EDF2}
-#splash .splash-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:28px;background:linear-gradient(150deg,#9FB9D8,#6E96C2);box-shadow:0 24px 60px rgba(42,45,51,.2);transition:opacity .35s ease,transform .35s ease}
+#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:8px;background:#F3EDE6}
+#splash .splash-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:28px;background:linear-gradient(150deg,#F7B77E,#E79A6C 55%,#C9B6E6);box-shadow:0 24px 60px rgba(90,60,40,.2);transition:opacity .35s ease,transform .35s ease}
 #splash.out .splash-frame{opacity:0;transform:scale(1.04);pointer-events:none}
 #splash svg{width:100%;height:100%;display:block}
 #splash .stitle{position:absolute;top:18%;left:0;right:0;text-align:center;color:#fff;opacity:0;animation:fadeUp .7s .25s ease-out forwards}
@@ -35,7 +36,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hide-scroll{scrollbar-width:none;-ms-overflow-style:none}
 .hide-scroll::-webkit-scrollbar{display:none}
 
-.hdr{position:relative;overflow:hidden;margin:12px 12px 0;border:1px solid rgba(255,255,255,.55);border-radius:24px;background:linear-gradient(150deg,#9FB9D8,#C6D8EA);padding:28px 18px 30px}
+.hdr{position:relative;overflow:hidden;margin:12px 12px 0;border:1px solid rgba(255,255,255,.6);border-radius:24px;background:linear-gradient(150deg,#F7C9A9,#FDF0E6);padding:28px 18px 30px}
 .hdr.tight{padding-top:22px}
 .glass{background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .glass-strong{background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
@@ -46,33 +47,32 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
-.island-map{position:relative;margin:12px;border-radius:26px;overflow:hidden;padding:0 0 8px;background:linear-gradient(180deg,#BFE3F2 0%,#93CBE8 42%,#5FA9D6 100%);border:1px solid rgba(255,255,255,.6);box-shadow:0 16px 36px rgba(70,140,190,.22)}
-.island-map::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 14%,rgba(255,255,255,.5) 0 2px,transparent 3px),radial-gradient(circle at 20% 46%,rgba(255,255,255,.35) 0 1.5px,transparent 2.5px),radial-gradient(circle at 62% 72%,rgba(255,255,255,.35) 0 2px,transparent 3px),repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.09) 22px 23px)}
-.island-map-head{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 20px 6px}
-.island-map-head .eyebrow{margin:0;font-size:9px;font-weight:700;letter-spacing:.24em;color:rgba(32,92,132,.85)}
-.island-map-head h2{margin:5px 0 0;font-size:19px;letter-spacing:-.4px;color:#134E73}
-.island-map-head .sub{margin:5px 0 0;font-size:10px;line-height:1.5;color:rgba(19,78,115,.82)}
-.island-progress{flex:none;padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.85);text-align:center;color:#134E73}
+.island-map{position:relative;margin:0;border-radius:0;overflow:hidden;padding:0 0 96px;background:linear-gradient(180deg,#FCF8F3 0%,#F6ECDE 100%)}
+.island-map::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 82% 8%,rgba(247,201,169,.5),transparent 32%),radial-gradient(circle at 8% 42%,rgba(201,182,230,.32),transparent 30%),radial-gradient(circle at 88% 78%,rgba(169,214,190,.35),transparent 28%)}
+.island-map-head{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 20px 8px}
+.island-map-head .eyebrow{margin:0;font-size:9px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
+.island-map-head h2{margin:5px 0 0;font-size:22px;letter-spacing:-.4px;color:var(--ink)}
+.island-map-head .sub{margin:5px 0 0;font-size:10px;line-height:1.5;color:var(--muted)}
+.island-progress{flex:none;padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.9);text-align:center;color:var(--deep);box-shadow:0 8px 20px rgba(160,100,70,.1)}
 .island-progress b{display:block;font-size:20px;line-height:1;font-weight:800}
 .island-progress span{display:block;margin-top:3px;font-size:8px;letter-spacing:.08em}
-.island-water{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 6px;padding:10px 12px 4px}
-.island-node{position:relative;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;color:#134E73}
-.island-node:nth-child(4n+2){transform:translateY(16px)}
-.island-node:nth-child(4n+3){transform:translateY(-8px)}
-.island-orb{position:relative;width:100%;aspect-ratio:1/.92;border-radius:48% 52% 45% 55%/52% 46% 54% 48%;background-size:cover;background-position:center;box-shadow:0 10px 18px rgba(20,70,120,.28),inset 0 0 0 2px rgba(255,255,255,.55);transition:transform .2s ease,filter .25s ease;overflow:visible}
-.island-orb::after{content:"";position:absolute;left:8%;right:8%;bottom:-7px;height:12px;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(3px);z-index:-1}
-.island-node:active .island-orb{transform:scale(.95)}
-.island-node.locked .island-orb{filter:grayscale(.72) brightness(.9) saturate(.6);opacity:.82}
-.island-node.lit .island-orb{box-shadow:0 10px 22px rgba(20,70,120,.32),0 0 0 3px rgba(255,255,255,.9),0 0 22px rgba(255,214,130,.85)}
-.island-badge{position:absolute;top:-6px;right:-4px;z-index:3;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 14px rgba(20,70,120,.24);color:#134E73}
-.island-badge svg{width:22px;height:22px}
-.island-node.locked .island-badge{background:rgba(255,255,255,.7);opacity:.8}
-.island-flag{position:absolute;top:-8px;left:2px;z-index:3;padding:3px 8px;border-radius:99px;font-size:8px;font-weight:700;letter-spacing:.05em;color:#7A4A12;background:linear-gradient(135deg,#FFE1A6,#F4A259);box-shadow:0 5px 12px rgba(244,162,89,.4)}
+.island-water{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 10px;padding:8px 12px 4px}
+.island-node{position:relative;display:flex;flex-direction:column;align-items:center;padding:10px 6px 12px;border:0;border-radius:24px;background:rgba(255,255,255,.55);box-shadow:0 8px 22px rgba(160,100,70,.09)}
+.island-node:nth-child(4n+2){transform:translateY(10px)}
+.island-node:nth-child(4n+3){transform:translateY(-6px)}
+.island-orb{position:relative;width:100%;aspect-ratio:3/4;border-radius:20px;background-size:cover;background-position:center top;box-shadow:0 8px 18px rgba(90,60,40,.14);transition:transform .2s ease,filter .25s ease;overflow:hidden}
+.island-node:active .island-orb{transform:scale(.96)}
+.island-node.locked .island-orb{filter:grayscale(.55) brightness(.96);opacity:.9}
+.island-node.lit .island-orb{box-shadow:0 8px 18px rgba(90,60,40,.16),0 0 0 2px rgba(244,162,89,.7)}
+.island-badge{position:absolute;top:6px;right:6px;z-index:3;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 10px rgba(90,60,40,.18);color:var(--deep)}
+.island-badge svg{width:20px;height:20px}
+.island-node.locked .island-badge{opacity:.7}
+.island-flag{position:absolute;top:6px;left:6px;z-index:3;padding:3px 8px;border-radius:99px;font-size:8px;font-weight:700;letter-spacing:.05em;color:#7A4A12;background:linear-gradient(135deg,#FFE1A6,#F4A259);box-shadow:0 5px 12px rgba(244,162,89,.3)}
 .island-node.locked .island-flag{display:none}
-.island-name{margin-top:12px;font-size:11px;font-weight:700;color:#0B3E5E;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.6)}
-.island-state{margin-top:2px;font-size:8px;letter-spacing:.06em;color:rgba(11,62,94,.72)}
-.island-node.lit .island-state{color:#B4701F;font-weight:700}
-.island-foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 12px 4px;padding:9px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.6);font-size:9px;color:#134E73;text-align:center;line-height:1.5}
+.island-name{margin-top:10px;font-size:12px;font-weight:700;color:var(--ink);text-align:center}
+.island-state{margin-top:3px;font-size:8px;letter-spacing:.06em;color:var(--muted)}
+.island-node.lit .island-state{color:var(--deep);font-weight:700}
+.island-foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 12px 4px;padding:10px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);font-size:10px;color:var(--deep);text-align:center;line-height:1.5;box-shadow:0 8px 20px rgba(160,100,70,.08)}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
 .hdr-title{margin:16px 0 0;font-size:28px;line-height:1.25;letter-spacing:-.6px;color:var(--ink)}
@@ -92,7 +92,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .srch-clear{display:grid;place-items:center;width:22px;height:22px;flex:none;border:0;border-radius:50%;background:var(--mistlight);color:var(--deep);font-size:14px;line-height:1}
 .srch-label{margin:0;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--muted)}
 .srch-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.header-mini{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:50%;z-index:39;display:flex;align-items:center;gap:10px;width:min(calc(100% - 24px),351px);padding:8px 10px;border:1px solid rgba(255,255,255,.7);border-radius:22px;background:linear-gradient(150deg,#9FB9D8,#BDD2E8);box-shadow:0 12px 30px rgba(85,128,176,.3);opacity:0;pointer-events:none;transform:translate(-50%,-150%);transition:transform .28s ease,opacity .28s ease}
+.header-mini{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:50%;z-index:39;display:flex;align-items:center;gap:10px;width:min(calc(100% - 24px),351px);padding:8px 10px;border:1px solid rgba(255,255,255,.7);border-radius:22px;background:linear-gradient(150deg,#F7C9A9,#FDF0E6);box-shadow:0 12px 30px rgba(160,100,70,.22);opacity:0;pointer-events:none;transform:translate(-50%,-150%);transition:transform .28s ease,opacity .28s ease}
 .header-mini.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .mini-round{display:grid;place-items:center;width:36px;height:36px;flex:none;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:rgba(255,255,255,.55);color:var(--deep)}
 .mini-main{flex:1;min-width:0;padding:0 2px;border:0;background:none;text-align:left;color:var(--ink)}
@@ -103,7 +103,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .reco-title{margin:4px 0 0;font-size:17px;font-weight:700;line-height:1.3;color:var(--ink)}
 .reco-more{flex:none;padding:6px 0;border:0;background:none;color:var(--muted);font-size:11px}
 
-.card{background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(85,128,176,.08)}
+.card{background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(160,100,70,.09)}
 .card.click{cursor:pointer;transition:transform .15s}
 .card.click:active{transform:scale(.99)}
 .mt-3{margin-top:12px}.mt-4{margin-top:16px}.mt-5{margin-top:20px}.mt-6{margin-top:24px}.mt-7{margin-top:28px}
@@ -155,7 +155,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .interest-tile.on .interest-icon{background:var(--deep);border-color:var(--deep);color:#fff;box-shadow:0 6px 14px rgba(85,128,176,.3)}
 .interest-label{font-size:11px;font-weight:600;line-height:1}
 
-.login-hero{position:relative;overflow:hidden;margin:0 12px;padding:30px 20px 42px;border-radius:26px;background:linear-gradient(150deg,#9FB9D8,#C6D8EA)}
+.login-hero{position:relative;overflow:hidden;margin:0 12px;padding:30px 20px 42px;border-radius:26px;background:linear-gradient(150deg,#F7B77E,#F7C9A9)}
 .login-hero::after{content:"";position:absolute;right:-48px;top:-56px;width:184px;height:184px;border-radius:50%;background:rgba(255,255,255,.26)}
 .login-hero::before{content:"";position:absolute;left:-34px;bottom:-62px;width:128px;height:128px;border-radius:50%;background:rgba(255,255,255,.2)}
 .login-card{position:relative;z-index:2;margin:-24px 12px 0;padding:24px 20px;border-radius:24px;background:#fff;box-shadow:0 16px 40px rgba(85,128,176,.13)}
@@ -189,9 +189,9 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:52px;height:50px;flex:none;border:0;border-radius:999px;background:#fff;color:var(--muted);font-size:12px;font-weight:600}
 .tab svg{width:18px;height:18px}
 .tab-label{font-size:9px;line-height:1;letter-spacing:.02em}
-.tab.active{background:var(--ink);color:#fff;box-shadow:0 8px 20px rgba(42,45,51,.16)}
+.tab.active{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(231,154,108,.35)}
 .plus-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none;margin-top:-18px;padding:0;border:0;background:none;color:var(--primary)}
-.plus{display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:var(--primary);color:#fff;box-shadow:0 8px 18px rgba(85,128,176,.4)}
+.plus{display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:var(--primary);color:#fff;box-shadow:0 8px 18px rgba(231,154,108,.42)}
 .plus-wrap svg{width:24px;height:24px}
 .plus-label{font-size:9px;line-height:1;color:var(--primary);font-weight:600}
 .float-back{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;z-index:46;display:grid;place-items:center;width:38px;height:38px;transform:translateX(calc(-1 * min(50vw, 187.5px) + 12px));border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 8px 22px rgba(42,45,51,.18);backdrop-filter:blur(10px)}
@@ -1492,10 +1492,9 @@ function viewHome(){
   const litCount=homeList.filter(x=>litIds.includes(x.id)).length
   const islandNodes=homeList.map(i=>{
     const lit=litIds.includes(i.id)
-    const art=ISLAND_ART[i.id]||1
     const prop=AVATAR_PROPS[i.id]||AVATAR_PROPS.photo
     return `<button class="island-node ${lit?'lit':'locked'}" data-action="open-detail-id" data-id="${i.id}" title="${esc(i.name)}">
-      <div class="island-orb" style="background-image:url('./images/islands/island-${art}.jpg')">
+      <div class="island-orb" style="background-image:url('./images/islands/${i.id}.png')">
         ${lit?'<span class="island-flag">已点亮</span>':''}
         <span class="island-badge"><svg viewBox="-28 -28 56 56">${prop.svg}</svg></span>
       </div>
@@ -1503,68 +1502,46 @@ function viewHome(){
       <span class="island-state">${lit?'再跳一次':'未探索'}</span>
     </button>`
   }).join('')
-  return `<div class="screen">
-    <div class="hdr home-header" id="homeHeader" style="padding-bottom:76px">${hdrDeco()}<div class="content">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
-        <div><p class="hdr-eyebrow">ISLAND HOP / 跳岛</p><p class="hdr-greeting">嗨，${esc(S.profile.nickname)} · 探索第 ${S.profile.islandDays} 天</p></div>
-        <button class="pill glasspill" data-action="location" title="修改定位">${ICON.pin} ${esc(S.location.split(' · ').slice(0,2).join(' · '))} ${ICON.chev}</button>
+  const pending=S.bookings.filter(b=>b.status==='booked')
+  const pendingHtml=pending.length?`<div class="card" style="padding:16px 18px;margin:0 12px 12px;background:linear-gradient(135deg,rgba(247,201,169,.35),#fff)">
+    <div style="display:flex;align-items:center;justify-content:space-between"><p style="margin:0;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--deep)">UPCOMING · 待体验</p>${pill(pending.length+' 条预约')}</div>
+    <div style="display:grid;gap:10px;margin-top:12px">${pending.map(b=>{
+      const bi=findIsland(b.islandId),bl=findLevel(b.levelId)
+      const bst=findStore(b.storeId)||DATA.stores.find(x=>x.islandId===b.islandId)||DATA.stores[0]
+      const cd=bookingCountdown(b)
+      return `<div style="padding:12px;border-radius:16px;background:rgba(255,255,255,.86)">
+        <div style="display:flex;align-items:center;gap:10px">
+          ${ring(bi.glyph,38)}
+          <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;justify-content:space-between;gap:6px"><b style="font-size:12px">${bi.name}</b>${pill('已锁定','green')}</div><p style="margin:3px 0 0;font-size:10px;color:var(--muted)">${bookingDate(b)} · ${bl.name} · 到店 ${arrivalTime(bst.id)}</p></div>
+          <button data-action="reminder-start" data-id="${b.id}" style="flex:none;padding:8px 12px;border:0;border-radius:99px;background:var(--primary);color:#fff;font-size:10px;font-weight:700">开始体验</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 14px;border-radius:14px;${cd.soon?'background:linear-gradient(135deg,rgba(244,162,89,.2),rgba(232,169,160,.16));border:1px solid rgba(244,162,89,.4)':'background:var(--mistlight)'}">
+          <span style="color:${cd.soon?'#C97B52':'var(--deep)'}">${ICON.clock}</span>
+          <span id="cd-${b.id}" style="font-size:${cd.soon?'18':'15'}px;font-weight:800;letter-spacing:.5px;color:${cd.soon?'#C97B52':'var(--deep)'}">${cd.text}</span>
+          ${cd.soon?'<span style="margin-left:auto;font-size:10px;font-weight:700;color:#C97B52">即将到店</span>':''}
+        </div>
+      </div>`
+    }).join('')}</div>
+    <button data-action="nav-bookings" style="display:block;margin:12px auto 0;border:0;background:none;color:var(--deep);font-size:10px;font-weight:700">查看我的预约 →</button>
+  </div>`:''
+  return `<div class="screen" style="padding-bottom:0">
+    <div class="island-map">
+      <div class="island-map-head">
+        <div>
+          <p class="eyebrow">ISLAND HOP / 跳岛地图</p>
+          <h2>嗨，${esc(S.profile.nickname)}</h2>
+          <p class="sub">每座岛是一种职业，跳过去看看真实的一天</p>
+        </div>
+        <div class="island-progress"><b>${litCount}</b><span>/ ${homeList.length} 已点亮</span></div>
       </div>
-      <h1 class="hdr-title">下一座岛，哪座？</h1>
-      <p class="hdr-desc">每试过一种职业，就点亮一座岛。先跳一座，再慢慢看清自己。</p>
-      <button class="hdr-search" data-action="open-search" aria-label="搜索方向与职业">
+      <button class="hdr-search" data-action="open-search" aria-label="搜索方向与职业" style="margin:6px 12px 4px;width:calc(100% - 24px);background:rgba(255,255,255,.86);color:var(--deep)">
         <span style="display:grid;place-items:center;flex:none;color:var(--deep)">${ICON.search}</span>
-        <span class="hint">搜索感兴趣的方向 / 职业</span>
+        <span class="hint" style="color:var(--muted)">搜索感兴趣的方向 / 职业</span>
         <span class="go">›</span>
       </button>
-    </div></div>
-    <div class="pad overlap home-overlap" style="margin-top:-36px">
-      ${(()=>{
-        const pending=S.bookings.filter(b=>b.status==='booked')
-        if(!pending.length)return ''
-        return `<div class="card" style="padding:18px 20px;margin-bottom:14px;background:linear-gradient(135deg,rgba(85,128,176,.12),#fff)">
-          <div style="display:flex;align-items:center;justify-content:space-between"><p style="margin:0;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--primary)">UPCOMING · 待体验</p>${pill(pending.length+' 条预约')}</div>
-          <div style="display:grid;gap:10px;margin-top:14px">${pending.map(b=>{
-            const bi=findIsland(b.islandId),bl=findLevel(b.levelId)
-            const bst=findStore(b.storeId)||DATA.stores.find(x=>x.islandId===b.islandId)||DATA.stores[0]
-            const cd=bookingCountdown(b)
-            return `<div style="padding:12px;border-radius:16px;background:rgba(255,255,255,.82)">
-              <div style="display:flex;align-items:center;gap:10px">
-                ${ring(bi.glyph,38)}
-                <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;justify-content:space-between;gap:6px"><b style="font-size:12px">${bi.name}</b>${pill('已锁定','green')}</div><p style="margin:3px 0 0;font-size:10px;color:var(--muted)">${bookingDate(b)} · ${bl.name} · 到店 ${arrivalTime(bst.id)}</p></div>
-                <button data-action="reminder-start" data-id="${b.id}" style="flex:none;padding:8px 12px;border:0;border-radius:99px;background:var(--primary);color:#fff;font-size:10px;font-weight:700">开始体验</button>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 14px;border-radius:14px;${cd.soon?'background:linear-gradient(135deg,rgba(217,136,128,.18),rgba(231,163,60,.12));border:1px solid rgba(217,136,128,.4)':'background:var(--mistlight)'}">
-                <span style="color:${cd.soon?'#B05D56':'var(--primary)'}">${ICON.clock}</span>
-                <span id="cd-${b.id}" style="font-size:${cd.soon?'18':'15'}px;font-weight:800;letter-spacing:.5px;color:${cd.soon?'#B05D56':'var(--primary)'}">${cd.text}</span>
-                ${cd.soon?'<span style="margin-left:auto;font-size:10px;font-weight:700;color:#B05D56">即将到店</span>':''}
-              </div>
-            </div>`
-          }).join('')}</div>
-          <button data-action="nav-bookings" style="display:block;margin:12px auto 0;border:0;background:none;color:var(--primary);font-size:10px;font-weight:700">查看我的预约 →</button>
-        </div>`
-      })()}
-      <div class="island-map">
-        <div class="island-map-head">
-          <div>
-            <p class="eyebrow">MY ISLANDS / 我的群岛</p>
-            <h2>跳岛地图</h2>
-            <p class="sub">每探索一种职业，就点亮一座岛</p>
-          </div>
-          <div class="island-progress"><b>${litCount}</b><span>/ ${homeList.length} 已点亮</span></div>
-        </div>
-        <div class="island-water">${islandNodes}</div>
-        <div class="island-foot">轻点任意岛屿 · 先看看这座岛，再决定要不要留下</div>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:16px">
-        <button class="btn light" data-action="nav-map" style="flex:1"><span>打开地图</span><span class="arrow">${ICON.arrow}</span></button>
-        <button class="btn" data-action="open-detail" style="flex:1"><span>随便看看</span><span class="arrow">${ICON.arrow}</span></button>
-      </div>
-      <p id="homeHint" style="margin:14px 0 0;text-align:center;font-size:11px;color:var(--muted)">${S.bookings.length?`已有 ${S.bookings.length} 条预约，可在个人中心查看。`:'跳过的每一座岛，都会成为你的线索。'}</p>
-      <div class="card" style="padding:20px;margin-top:24px">
-        <p style="margin:0;font-size:10px;font-weight:600;letter-spacing:.18em;color:var(--primary)">HOW IT WORKS</p><h2 style="margin:4px 0 0;font-size:16px">跳岛，不用一次想清楚</h2>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:16px">${[['登岛','用半天试试看'],['离岛 / 再登岛','都算有收获'],['跳岛日志','只记观察，不定论']].map(([t,d],idx)=>`<div style="flex:1;min-width:0"><p style="margin:0;font-size:11px;font-weight:700;color:var(--deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t}</p><p style="margin:4px 0 0;font-size:10px;line-height:1.4;color:var(--muted)">${d}</p></div>${idx<2?'<span style="width:10px;height:1px;background:var(--line);flex:none"></span>':''}`).join('')}</div>
-      </div>
-      ${footer()}
+      ${pendingHtml}
+      <div class="island-water">${islandNodes}</div>
+      <div class="island-foot">轻点任意岛屿 · 进入这座岛的预约之旅</div>
     </div>
   </div>`
 }
