@@ -47,8 +47,10 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
-.home-screen{background:#F8F1E4}
-.island-map{position:relative;margin:0;min-height:1040px;padding:0;background:transparent;overflow:hidden}
+.home-screen{background:#F8F1E4;--map-h:1200px}
+.island-scroll{position:relative;width:100%;height:var(--map-h);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+.island-scroll::-webkit-scrollbar{display:none}
+.island-map{position:relative;width:920px;height:var(--map-h);padding:0;background:transparent}
 .island-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .island-node{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%) rotate(var(--rot,0deg));transform-origin:center;transition:transform .2s ease}
 .island-node:active{transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(.95)}
@@ -57,7 +59,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .island-node.lit .island-orb{filter:drop-shadow(0 12px 18px rgba(90,70,50,.22))}
 .island-name{margin-top:-2px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;white-space:nowrap}
 .island-node.locked .island-name{color:#9A9A9A}
-.island-note{position:absolute;left:0;right:0;bottom:100px;z-index:3;text-align:center;font-size:10px;color:var(--muted)}
+.island-note{position:relative;z-index:3;padding:0 20px 24px;text-align:center;font-size:10px;color:var(--muted)}
 .island-note b{color:var(--deep)}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
@@ -1475,9 +1477,9 @@ function viewHome(){
   S.homeList=homeList.map(x=>x.id)
   const litIds=[...new Set(S.records.map(r=>r.islandId))]
   const spots=[
-    {x:24,y:12,w:29,r:-7},{x:66,y:9,w:24,r:6},{x:38,y:29,w:26,r:4},
-    {x:74,y:32,w:22,r:-9},{x:16,y:47,w:27,r:8},{x:55,y:53,w:24,r:-5},
-    {x:30,y:70,w:25,r:6},{x:70,y:76,w:27,r:-6}
+    {x:12,y:5,w:15,r:-8},{x:36,y:10,w:13,r:7},{x:64,y:4,w:14,r:-5},
+    {x:87,y:18,w:13,r:9},{x:17,y:30,w:15,r:6},{x:46,y:38,w:14,r:-7},
+    {x:76,y:52,w:15,r:5},{x:30,y:74,w:16,r:-6}
   ]
   const nodes=homeList.map((i,n)=>{
     const lit=litIds.includes(i.id)
@@ -1490,13 +1492,15 @@ function viewHome(){
   const pts=spots.map(s=>`${s.x},${s.y+3}`).join(' ')
   const pending=S.bookings.filter(b=>b.status==='booked').length
   return `<div class="screen home-screen" style="padding-bottom:0">
-    <div class="island-map">
-      <svg class="island-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <polyline points="${pts}" fill="none" stroke="#D9D2CA" stroke-width="1.6" stroke-dasharray="0.9 1.1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-      </svg>
-      ${nodes}
-      <div class="island-note">${pending?`<b>待体验 ${pending} 条 · 在「我的」中查看</b><br>`:''}轻点任意岛屿，进入预约之旅</div>
+    <div class="island-scroll">
+      <div class="island-map">
+        <svg class="island-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="${pts}" fill="none" stroke="#D9D2CA" stroke-width="1.6" stroke-dasharray="0.9 1.1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        </svg>
+        ${nodes}
+      </div>
     </div>
+    <div class="island-note">${pending?`<b>待体验 ${pending} 条 · 在「我的」中查看</b><br>`:''}左右上下滑动地图 · 轻点岛屿进入预约</div>
   </div>`
 }
 
