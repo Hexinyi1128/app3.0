@@ -47,10 +47,9 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .hdr.home-header{margin:12px 12px 0;padding:24px 18px 30px;border:1px solid rgba(255,255,255,.7);border-radius:24px;background:linear-gradient(150deg,#FFD9AE 0%,#FFE9D2 48%,#E4F0F7 100%);transition:transform .3s ease,opacity .3s ease}
 .hdr.home-header.collapsed{transform:translateY(calc(-100% - 16px));opacity:0;pointer-events:none}
 .home-overlap{margin-left:12px;margin-right:12px}
-.home-screen{background:#F8F1E4;--map-h:1200px}
-.island-scroll{position:relative;width:100%;height:var(--map-h);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
-.island-scroll::-webkit-scrollbar{display:none}
-.island-map{position:relative;width:920px;height:var(--map-h);padding:0;background:transparent}
+.home-screen{min-height:100dvh;background:#F8F1E4;--map-h:1200px}
+.island-scroll{position:relative;width:100%;height:calc(100dvh - 76px);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+.island-map{position:absolute;left:0;top:0;width:920px;height:var(--map-h);padding:0;background:transparent}
 .island-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .island-node{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;padding:0;border:0;background:none;transform:translate(-50%,-50%) rotate(var(--rot,0deg));transform-origin:center;transition:transform .2s ease}
 .island-node:active{transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(.95)}
@@ -59,7 +58,7 @@ button{color:inherit;-webkit-appearance:none;appearance:none;cursor:pointer}
 .island-node.lit .island-orb{filter:drop-shadow(0 12px 18px rgba(90,70,50,.22))}
 .island-name{margin-top:-2px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;white-space:nowrap}
 .island-node.locked .island-name{color:#9A9A9A}
-.island-note{position:relative;z-index:3;padding:0 20px 24px;text-align:center;font-size:10px;color:var(--muted)}
+.island-note{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:38;width:min(100%,375px);padding:0 20px;text-align:center;font-size:10px;color:var(--muted);pointer-events:none}
 .island-note b{color:var(--deep)}
 .hdr-eyebrow{margin:0;font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--deep)}
 .hdr-greeting{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--deep)}
@@ -732,7 +731,7 @@ const S = {
   mapQuery:'',activeStore:'s_coffee',carouselIndex:0,sheet:null,toast:'',reviewsExpanded:false,mapTargetStore:null,selectedMentor:null,lightboxSrc:null,
   searchQuery:'',homeList:DATA.islands.map(x=>x.id),
   bookings:[],bookingDate:(()=>{const d=new Date(Date.now()+8*3600*1000);return {year:d.getUTCFullYear(),month:d.getUTCMonth()+1,day:d.getUTCDate()}})(),upcomingNotified:false,activeBookingId:null,loggedIn:false,
-  mapPan:{x:0,y:0},storeMapPan:{x:0,y:0},mapZoom:1,mapHeadCollapsed:false,storesHidden:false,mapFullscreen:false,payMethod:'wechat',
+  mapPan:{x:0,y:0},storeMapPan:{x:0,y:0},homePan:{x:0,y:0},mapZoom:1,mapHeadCollapsed:false,storesHidden:false,mapFullscreen:false,payMethod:'wechat',
   geo:{lat:31.224,lng:121.445},mapCenter:{lat:31.224,lng:121.445},autoLocation:true,
   reviewTab:'all',reviewLimit:6,likedReviews:[],avatarLook:null
 }
@@ -1041,6 +1040,12 @@ function updateStoresSection(){
   const el=document.getElementById('storesSection')
   if(el)el.classList.toggle('collapsed',S.storesHidden)
   app.classList.toggle('map-full',S.screen==='map'&&S.mapFullscreen)
+}
+function clampHomePan(){
+  const host=document.querySelector('.island-scroll')
+  if(!host)return
+  S.homePan.x=Math.min(0,Math.max(host.clientWidth-920,S.homePan.x))
+  S.homePan.y=Math.min(0,Math.max(host.clientHeight-1200,S.homePan.y))
 }
 function applyMapTransform(){
   const transform=`translate(${S.mapPan.x}px,${S.mapPan.y}px) scale(${mapScale()})`
@@ -1477,9 +1482,9 @@ function viewHome(){
   S.homeList=homeList.map(x=>x.id)
   const litIds=[...new Set(S.records.map(r=>r.islandId))]
   const spots=[
-    {x:12,y:5,w:15,r:-8},{x:36,y:10,w:13,r:7},{x:64,y:4,w:14,r:-5},
-    {x:87,y:18,w:13,r:9},{x:17,y:30,w:15,r:6},{x:46,y:38,w:14,r:-7},
-    {x:76,y:52,w:15,r:5},{x:30,y:74,w:16,r:-6}
+    {x:12,y:13,w:15,r:-8},{x:36,y:19,w:13,r:7},{x:64,y:13,w:14,r:-5},
+    {x:87,y:26,w:13,r:9},{x:17,y:38,w:15,r:6},{x:46,y:47,w:14,r:-7},
+    {x:76,y:60,w:15,r:5},{x:30,y:82,w:16,r:-6}
   ]
   const nodes=homeList.map((i,n)=>{
     const lit=litIds.includes(i.id)
@@ -1493,7 +1498,7 @@ function viewHome(){
   const pending=S.bookings.filter(b=>b.status==='booked').length
   return `<div class="screen home-screen" style="padding-bottom:0">
     <div class="island-scroll">
-      <div class="island-map">
+      <div class="island-map" style="transform:translate(${S.homePan.x}px,${S.homePan.y}px)">
         <svg class="island-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <polyline points="${pts}" fill="none" stroke="#D9D2CA" stroke-width="1.6" stroke-dasharray="0.9 1.1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
         </svg>
@@ -2603,26 +2608,28 @@ app.addEventListener('input',e=>{
 app.addEventListener('change',e=>{if(e.target.dataset.field==='bookingMonth')e.target.dispatchEvent(new Event('input',{bubbles:true}))})
 
 app.addEventListener('pointerdown',e=>{
-  if(!['map','storeMap'].includes(S.screen)||!e.target.closest('.map-dark'))return
+  const isHome=S.screen==='home'
+  if(!isHome&&!['map','storeMap'].includes(S.screen))return
+  if(!e.target.closest(isHome?'.island-scroll':'.map-dark'))return
   if(e.pointerType==='mouse'&&e.button!==0)return
   if(S.screen==='map'){
     S.mapHeadCollapsed=true;S.storesHidden=true;S.mapFullscreen=true
     updateSectionHead();updateStoresSection()
   }
   if(e.target.closest('.map-ctrl'))return
-  if(S.screen==='storeMap'&&!S.storeMapPan)S.storeMapPan={x:0,y:0}
-  const pan=S.screen==='storeMap'?S.storeMapPan:S.mapPan
+  const pan=isHome?S.homePan:(S.screen==='storeMap'?S.storeMapPan:S.mapPan)
   mapDrag={id:e.pointerId,x:e.clientX,y:e.clientY,ox:pan.x,oy:pan.y,screen:S.screen}
 })
 app.addEventListener('pointermove',e=>{
   if(!mapDrag||mapDrag.id!==e.pointerId)return
   const dx=e.clientX-mapDrag.x,dy=e.clientY-mapDrag.y
   if(Math.abs(dx)+Math.abs(dy)>4)mapMoved=true
-  const pan=mapDrag.screen==='storeMap'?S.storeMapPan:S.mapPan
+  const pan=mapDrag.screen==='home'?S.homePan:(mapDrag.screen==='storeMap'?S.storeMapPan:S.mapPan)
   pan.x=mapDrag.ox+dx
   pan.y=mapDrag.oy+dy
-  if(mapDrag.screen==='storeMap'){
-    const canvas=document.getElementById('mapCanvas')
+  if(mapDrag.screen==='home')clampHomePan()
+  if(mapDrag.screen==='home'||mapDrag.screen==='storeMap'){
+    const canvas=mapDrag.screen==='home'?document.querySelector('.island-map'):document.getElementById('mapCanvas')
     if(canvas)canvas.style.transform=`translate(${pan.x}px,${pan.y}px)`
   }else applyMapTransform()
 })
@@ -2632,6 +2639,14 @@ app.addEventListener('pointerup',()=>{
 })
 app.addEventListener('pointercancel',()=>{mapDrag=null})
 app.addEventListener('wheel',e=>{
+  if(e.target.closest('.island-scroll')){
+    e.preventDefault()
+    S.homePan.x-=e.deltaX;S.homePan.y-=e.deltaY
+    clampHomePan()
+    const canvas=document.querySelector('.island-map')
+    if(canvas)canvas.style.transform=`translate(${S.homePan.x}px,${S.homePan.y}px)`
+    return
+  }
   if(!e.target.closest('.map-dark'))return
   e.preventDefault()
   const next=Math.max(0.8,Math.min(1.8,S.mapZoom+(e.deltaY<0?0.15:-0.15)))
